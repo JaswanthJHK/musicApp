@@ -90,7 +90,7 @@ class MostlyPlayedScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 5),
               itemCount: list.length,
               itemBuilder: (context, index) {
-                return MusicList(song: list[index],artist:list[index],);
+                // return MusicList(song: list[index],artist:list[index],);
               },
             ),
           ),

@@ -1,17 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:music_ui/screens/splachScreen.dart';
+import 'dart:math';
 
-void main(List<String> args) {
+import 'package:flutter/material.dart';
+import 'package:music_ui/model/model.dart';
+import 'package:music_ui/screens/splachScreen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(ModelsongAdapter().typeId)) {
+    Hive.registerAdapter(ModelsongAdapter());
+  }
   runApp(MyScreen());
 }
 
 class MyScreen extends StatelessWidget {
+   
   const MyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-     debugShowCheckedModeBanner: false,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),

@@ -18,13 +18,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+     SongFetch fetching = SongFetch();
+    fetching.fetching();
     super.initState();
     gotohome();
   }
 
   gotohome() async {
-    SongFetch fetching = SongFetch();
-    fetching.fetching();
+   
     await Future.delayed(Duration(seconds: 3), () {});
     Navigator.pushReplacement(
       context,

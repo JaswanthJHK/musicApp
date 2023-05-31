@@ -12,7 +12,6 @@ import '../screens/objectsFuncton.dart';
 //   player.stop();
 //   playinglistAudio.clear();
 
-
 //   for (int i = 0; i < songs.length; i++) {
 //     playinglistAudio.add(Audio.file(songs[i].url!,
 //         metas: Metas(
@@ -68,18 +67,24 @@ import '../screens/objectsFuncton.dart';
 List<Audio> playingList = [];
 
 playMusic(int index, List<Modelsong> songs) async {
-  
   for (var element in songs) {
-   
-    playingList.add(Audio.file(element.url!,
+    playingList.add(
+      Audio.file(
+        element.url!,
         metas: Metas(
-            title: element.name,
-            artist: element.artist,
-            id: element.id.toString())));
-    
+          title: element.name,
+          artist: element.artist,
+          id: element.id.toString(),
+        ),
+      ),
+    );
   }
 
-  await player.open(Playlist(audios: playingList, startIndex: index,),showNotification: true);
-
- 
+  await player.open(
+    Playlist(
+      audios: playingList,
+      startIndex: index,
+    ),
+    showNotification: true,  
+  );
 }

@@ -87,10 +87,11 @@ class RecentlyScreen extends StatelessWidget {
                     itemCount: list.length,
                     itemBuilder: (context, index) {
                       //------------------------------------------------------------------
-                      return MusicList(
-                        song: list[index],
-                        artist: list[index],
-                      );
+                      // return MusicList(
+                      //   song: list[index],
+                      //   artist: list[index],
+                      //   id: list[index],
+                      // );
                     },
                   ),
                 ),

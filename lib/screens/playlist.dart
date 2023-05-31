@@ -111,20 +111,18 @@ class PlaylistScreen extends StatelessWidget {
                             backgroundColor: Color.fromARGB(255, 220, 220, 220),
                             title: Text('Add Name'),
                             content: TextField(
-                             
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Playlist Name',
                               ),
                             ),
-                             actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('OK'))
-                          ],
-                            
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'))
+                            ],
                           );
                         },
                       );
@@ -132,8 +130,7 @@ class PlaylistScreen extends StatelessWidget {
                     icon: Icon(Icons.add),
                     color: Color.fromARGB(255, 182, 182, 182),
                     iconSize: 30,
-                  )
-                  ),
+                  )),
             ),
             Container(
                 width: 330, // Set the desired width of the container
@@ -227,7 +224,7 @@ class PlaylistScreen extends StatelessWidget {
                                                                               .pop();
                                                                         },
                                                                         child: Text(
-                                                                            'Close'),
+                                                                            'yes'),
                                                                       ),
                                                                     ],
                                                                   );
@@ -237,13 +234,44 @@ class PlaylistScreen extends StatelessWidget {
                                                               .remove_circle_outline),
                                                           label: Text(
                                                               'Delete this PlayList')),
+                                                      ElevatedButton.icon(
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'EDIT'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: Text(
+                                                                            'yes'),
+                                                                            
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                });
+                                                          },
+                                                          icon: Icon(Icons
+                                                              .remove_circle_outline),
+                                                          label: Text(
+                                                              '  Edit this PlayList  ')),
                                                     ],
                                                   ));
                                             },
                                           );
                                         },
                                         icon: Icon(Icons.more_vert),
-                                        color: Color.fromARGB(255, 219, 219, 219),iconSize: 20,
+                                        color:
+                                            Color.fromARGB(255, 219, 219, 219),
+                                        iconSize: 20,
                                       )
                                     ],
                                   ),
