@@ -1,7 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:music_ui/screens/splachScreen.dart';
+// import 'package:music_ui/screens/splachScreen.dart';
 import '../model/model.dart';
-import '../screens/homeScreen.dart';
+// import '../screens/homeScreen.dart';
 import '../screens/objectsFuncton.dart';
 
 // Modelsong? currentlyplaying;
@@ -67,6 +67,7 @@ import '../screens/objectsFuncton.dart';
 List<Audio> playingList = [];
 
 playMusic(int index, List<Modelsong> songs) async {
+  playingList.clear();
   for (var element in songs) {
     playingList.add(
       Audio.file(
@@ -81,10 +82,10 @@ playMusic(int index, List<Modelsong> songs) async {
   }
 
   await player.open(
-    Playlist(
-      audios: playingList,
-      startIndex: index,
-    ),
-    showNotification: true,  
-  );
+      Playlist(
+        audios: playingList,
+        startIndex: index,
+      ),
+      showNotification: true);
+  player.setLoopMode(LoopMode.playlist);
 }

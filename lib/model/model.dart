@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'model.g.dart';
 
 @HiveType(typeId: 1)
-class Modelsong {
+class Modelsong extends HiveObject {
 
   @HiveField(0)
   String? name;

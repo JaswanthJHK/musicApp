@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:music_ui/function/allSongs.dart';
+import 'package:music_ui/favorite/fav_db_functions.dart';
+// import 'package:music_ui/function/db_functions/allSongs.dart';
 import 'package:music_ui/function/currentPlaying.dart';
 import 'package:music_ui/screens/favoriteScreen.dart';
 import 'package:music_ui/screens/mostlyPlayed.dart';
@@ -18,16 +18,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  // List<String> list = [
-  //   'song 1',
-  //   'song 2',
-  //   'song 3',
-  //   'song 4',
-  //   'song 5',
-  //   'song 6',
-  //   'song 7',
-  //   'song 8'
-  // ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +32,6 @@ class HomeScreen extends StatelessWidget {
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: SingleChildScrollView(
-          
           child: Column(children: [
             //------------------Appbar Function--------------------------------
 
@@ -58,8 +48,8 @@ class HomeScreen extends StatelessWidget {
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Padding(
                         padding: EdgeInsets.only(top: 10),
 
@@ -93,8 +83,8 @@ class HomeScreen extends StatelessWidget {
                 //-----------------------YOURS FAVORITE----------------------------------------
                 yoursFavorite(),
 
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Padding(
                       padding: EdgeInsets.only(top: 10, left: 30),
                       child: Text(
@@ -139,6 +129,8 @@ class HomeScreen extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
+           
+           
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -172,133 +164,116 @@ class musicListview extends StatelessWidget {
           right: 10,
         ),
         //------------------------------------valueListenable----------------------------------------------------
-        child: ValueListenableBuilder(
-          valueListenable: mySongs,
-          builder: (context, value, child) {
-            return ListView.builder(
-               physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: EdgeInsets.only(top: 5),
-              itemCount: listofSongs.length,
-              itemBuilder: (context, index) {
-                //-----------------------------------------PLAYING AREA------------------------------------------
-                log("iiiiiiiiiiiiiiiiikannappiiii");
-                print(mySongs.value.length);
+        child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: EdgeInsets.only(top: 5),
+          itemCount: allSongs.length,
+          itemBuilder: (context, index) {
+            //-----------------------------------------PLAYING AREA------------------------------------------
+           // log("iiiiiiiiiiiiiiiiikannappiiii");
+            // print(mySongs.value.length);
 
-                return GestureDetector(
-                  onTap: () async {
-                    log("iiiiiiiiiiiiggggggggggggggggggiiiiikannappiiii");
-                    player.open(Audio.file(listofSongs[index].url!));
+            return GestureDetector(
+              onTap: () async {
+              //  log("iiiiiiiiiiiiggggggggggggggggggiiiiikannappiiii");
+                player.open(Audio.file(allSongs[index].url!));
 
-                    await playMusic(index, listofSongs);
+                await playMusic(index, allSongs);
 
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      playingList.add(Audio(listofSongs[index].url!));
-                      return PlayingScreen();
-                    }));
-                  },
-                  // child: MusicList(
-                  //   song: listofSongs[index].name ?? 'untitled',
-                  //   artist: listofSongs[index].artist ?? 'Unknown',
-                  //   id: listofSongs[index].id!,
-                  //   //-------------------------------------------try to clear the id null problem what if a null image will come
-                  // ),
-                  child: ListTile(
-                    leading: Container(
-                      width: 49,height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 226, 226, 226),
-                          width: 2,
-                        ),
-                        color: Colors.white
-                      ),
-                      child: QueryArtworkWidget(
-                        // width: 50,
-                        // height: 50,
-                        // decoration: BoxDecoration(
-                        //   borderRadius: BorderRadius.circular(8),
-                        //   border: Border.all(
-                        //       color: Color.fromARGB(255, 230, 230, 230), width: 3),
-                        //   image: DecorationImage(
-                        //     fit: BoxFit.cover,
-                        //     image: AssetImage(
-                        //       'assets/image/Music3.png',
-                        //     ),
-                        //   ),
-                        // ),
-                    
-                        artworkFit: BoxFit.cover,
-                        id: listofSongs[index].id!,
-                        type: ArtworkType.AUDIO,
-                        artworkQuality: FilterQuality.high,
-                        size: 10,
-                        quality: 100,
-                        artworkBorder: BorderRadius.circular(60),
-                        nullArtworkWidget: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8),),
-                          child: Image.asset(
-                            'assets/image/Music3.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      listofSongs[index].name!,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          color: Colors.grey[100],
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    subtitle: Text(
-                      listofSongs[index].artist ?? 'unknown',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: Colors.grey[100],
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    // trailing: Icon(
-                    //   Icons.more_vert,
-                    //   color: Colors.grey[100],
-                    // ),
-                    trailing: IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 198, 198, 198),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      ElevatedButton.icon(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.add),
-                                          label: Text('Add to favorite')),
-                                      ElevatedButton.icon(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.add),
-                                          label: Text('Add to playlist')),
-                                    ],
-                                  ));
-                            },
-                          );
-                        },
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: Color.fromARGB(255, 217, 217, 217),
-                        )),
-                  ),
-                );
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  playingList.add(Audio(allSongs[index].url!));
+                  return PlayingScreen(song: allSongs[index]);
+                }));
               },
+              // child: MusicList(
+              //   song: listofSongs[index].name ?? 'untitled',
+              //   artist: listofSongs[index].artist ?? 'Unknown',
+              //   id: listofSongs[index].id!,
+              //   //-------------------------------------------try to clear the id null problem what if a null image will come
+              // ),
+              child: ListTile(
+                leading: QueryArtworkWidget(
+                  artworkWidth: 30, artworkHeight: 30,
+                  artworkFit: BoxFit.cover,
+                  id: allSongs[index].id!,
+                  type: ArtworkType.AUDIO,
+                  artworkQuality: FilterQuality.high,
+                  //size: 10,
+                  quality: 100,
+                  artworkBorder: BorderRadius.circular(60),
+                  nullArtworkWidget: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                    child: Image.asset(
+                      'assets/image/Music3.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                title: Text(
+                  allSongs[index].name!,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      color: Colors.grey[100],
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                subtitle: Text(
+                  allSongs[index].artist ?? 'unknown',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.grey[100],
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300),
+                ),
+                // trailing: Icon(
+                //   Icons.more_vert,
+                //   color: Colors.grey[100],
+                // ),
+                trailing: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                              backgroundColor:
+                                  Color.fromARGB(255, 198, 198, 198),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        if (!favorite.value
+                                            .contains(allSongs[index])) {
+                                          addToFav(allSongs[index].id as int);
+                                        } else {
+                                          removeFromFav(
+                                              allSongs[index].id as int);
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      child: favorite.value
+                                              .contains(allSongs[index])
+                                          ? Text('Remove to favorite')
+                                          : Text('Add to favorite')),
+                                  ElevatedButton.icon(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.add),
+                                      label: Text('Add to playlist')),
+                                ],
+                              ));
+                        },
+                      );
+                    },
+                    icon: Icon(
+                      Icons.more_vert,
+                      color: Color.fromARGB(255, 217, 217, 217),
+                    )),
+              ),
             );
           },
         ),
