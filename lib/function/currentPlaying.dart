@@ -62,7 +62,7 @@ import '../screens/objectsFuncton.dart';
 //   }
 //   return allSongsAudioList;
 // }
-//----------------------------------------------------------
+//----------------------------------------------------------music playing function
 
 List<Audio> playingList = [];
 

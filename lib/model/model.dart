@@ -3,16 +3,15 @@ part 'model.g.dart';
 
 @HiveType(typeId: 1)
 class Modelsong extends HiveObject {
-
   @HiveField(0)
   String? name;
   @HiveField(1)
   String? artist;
-  @HiveField(3)
+  @HiveField(2)
   int? duration;
-  @HiveField(4)
+  @HiveField(3)
   int? id;
-  @HiveField(5)
+  @HiveField(4)
   String? url;
 
   Modelsong(

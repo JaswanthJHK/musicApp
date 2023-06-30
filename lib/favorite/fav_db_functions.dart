@@ -16,6 +16,7 @@ addToFav(int id) async {
       favorite.value.add(elements);
     }
   }
+  favorite.notifyListeners();
 }
 
 Future<void> removeFromFav(int id) async {
@@ -28,6 +29,3 @@ Future<void> removeFromFav(int id) async {
   }
   favorite.notifyListeners();
 }
-
-
-

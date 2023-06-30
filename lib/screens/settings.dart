@@ -185,7 +185,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           backgroundColor: Color.fromARGB(255, 215, 215, 215),
                           title: Text('Terms And Conditions'),
                           content: const Text(
-                              'These are electronic systems and technologies that assist drivers in operating their vehicles more safely and efficiently. ADAS includes a variety of features such as adaptive cruise control, automatic emergency braking, lane departure warning, blind spot detection, parking assistance, and others. These features use sensors, cameras, and other technologies to help the driver stay alert, avoid collisions, and improve overall driving performance. ADAS is becoming more common i'),
+                              'Terms and Conditions \n \n Please read these Terms and Conditions ("Terms") carefully before using our music app. By accessing or using the app, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not use the app\n ownership \n \n Ownership: All intellectual property rights in the app, including but not limited to copyrights, trademarks, and trade secrets, are owned by us or our licensors. You acknowledge that you have no right, title, or interest in the app or its content except as expressly provided in these terms'),
                           actions: [
                             TextButton(
                                 onPressed: () {
@@ -218,18 +218,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                          title: Text('Privacy Policy'),
-                          content: const Text(
-                              'These are electronic systems and technologies that assist drivers in operating their vehicles more safely and efficiently. ADAS includes a variety of features such as adaptive cruise control, automatic emergency braking, lane departure warning, blind spot detection, parking assistance, and others. These features use sensors, cameras, and other technologies to help the driver stay alert, avoid collisions, and improve overall driving performance. ADAS is becoming more common i'),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('OK'))
-                          ],
+                        return SingleChildScrollView(
+                          child: AlertDialog(
+                            backgroundColor: Color.fromARGB(255, 215, 215, 215),
+                            title: Text('Privacy Policy'),
+                            content: const Text(
+                                "Privacy Policy\n \n This privacy policy describes how we collect, use, store, and disclose information when you use our music app. By using the app, you agree to the collection and use of your information as described in this privacy policy. \n \n Information that we collect\n \n 1.1 Personal Information: We may collect personal information that you provide to us, such as your name, email address, and profile picture when you create an account or interact with certain features of the app \n \n 1.2 Usage Information: We automatically collect certain information about your device and usage of the app, including IP address, device type, operating system, app version, and usage statistics. This information is used to analyze trends, administer the app, track user movements, and gather demographic information for aggregate use  \n \n Use of information \n \n  2.1 Personal Information: We may use your personal information to provide and personalize the apps features and content, communicate with you, and improve our services. We may also use your information to send you promotional emails or updates about the app, but you can opt out of receiving such communications \n \n Data storage and security \n\n Data Storage: Your information, including personal and usage data, may be stored on servers located in different countries. By using the app, you consent to the transfer of your information to these servers \n \n CONTACT US \n\n if you have questions and conserns , or suggestions regarding the privacy policy or my app's privacy practices please contact us at jaswanthkriz@gmail.com"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'))
+                            ],
+                          ),
                         );
                       },
                     );
@@ -309,9 +311,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) {
                         return AlertDialog(
                           backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                          title: Text('About Us'),
+                          title: Text('About'),
                           content: const Text(
-                              'These are electronic systems and technologies that assist drivers in operating their vehicles more safely and efficiently. ADAS includes a variety of features such as adaptive cruise control, automatic emergency braking, lane departure warning, blind spot detection, parking assistance, and others. These features use sensors, cameras, and other technologies to help the driver stay alert, avoid collisions, and improve overall driving performance. ADAS is becoming more common i'),
+                              'Musique is an offline music player app which allows to hear music from their storage and also do functions like add to favorite, create playlist , recently played and mostly played, etc. \n \n App developed by \n JASWANTH HARIKIRSHNA'),
                           actions: [
                             TextButton(
                                 onPressed: () {
