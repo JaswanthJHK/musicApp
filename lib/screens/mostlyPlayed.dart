@@ -1,28 +1,18 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_ui/function/currentPlaying.dart';
 import 'package:music_ui/function/mostlyPlayed/mostlyPlayed_function.dart';
 import 'package:music_ui/screens/musicPlaying.dart';
-import 'package:music_ui/screens/objectsFuncton.dart';
 import 'package:music_ui/screens/splachScreen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../widget/listtile.dart';
+import '../applications/MostlyBloc/bloc/mostly_bloc_bloc.dart';
+import '../applications/MostlyBloc/bloc/mostly_bloc_state.dart';
 import 'addtoplaylist.dart';
 
 class MostlyPlayedScreen extends StatelessWidget {
-  MostlyPlayedScreen({super.key});
-  List<String> list = [
-    'song 1',
-    'song 2',
-    'song 3',
-    'song 4',
-    'song 5',
-    'song 6',
-    'song 7',
-  ];
+  const MostlyPlayedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +40,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                       bottomRight: Radius.circular(30),
                     )),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 0, left: 10),
+                  padding: const EdgeInsets.only(top: 0, left: 10),
                   child: ShaderMask(
                     blendMode: BlendMode.srcIn,
                     shaderCallback: (Rect bounds) {
@@ -70,7 +60,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back_ios_new)),
+                            icon: const Icon(Icons.arrow_back_ios_new)),
                         const Padding(
                           padding: EdgeInsets.only(right: 100),
                           child: Text(
@@ -93,27 +83,38 @@ class MostlyPlayedScreen extends StatelessWidget {
                     left: 15,
                     right: 10,
                   ),
-                  child: ValueListenableBuilder(
-                    valueListenable: mostlyPLayedlist,
-                    builder: (context, value, child) {
+                  child: BlocBuilder<MostBloc, MostState>(
+                    builder: (context, mostState) {
+                      if (mostlyPLayedlist.value.isEmpty) {
+                        return const Padding(
+                          padding:
+                              EdgeInsets.only(right: 20, bottom: 20, left: 20),
+                          child: Center(
+                            child: Text(
+                              "No Songs Added",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 126, 126, 126),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        );
+                      }
                       return ListView.builder(
-                        padding: EdgeInsets.only(top: 5),
+                        padding: const EdgeInsets.only(top: 5),
                         itemCount: mostlyPLayedlist.value.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () async {
-                             // player.open(Audio.file(allSongs[index].url!));
-
                               playMusic(index, mostlyPLayedlist.value);
 
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 playingList.add(Audio(allSongs[index].url!));
-                                return PlayingScreen(song: allSongs[index]);
+                                return PlayingScreen(playingSong: allSongs[index]);
                               }));
                             },
                             child: ListTile(
-                              //title: Text(mostlyPLayedlist.value[index].name!),
                               leading: QueryArtworkWidget(
                                 artworkWidth: 30,
                                 artworkHeight: 30,
@@ -152,34 +153,21 @@ class MostlyPlayedScreen extends StatelessWidget {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300),
                               ),
-                              // trailing: Icon(
-                              //   Icons.more_vert,
-                              //   color: Colors.grey[100],
-                              // ),
                               trailing: IconButton(
                                   onPressed: () {
                                     showDialog(
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 198, 198, 198),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 198, 198, 198),
                                             content: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                // ElevatedButton(
-                                                //     onPressed: () {
-                                                //       removeFromFav(favorite
-                                                //           .value[index]
-                                                //           .id as int);
-
-                                                //       Navigator.pop(context);
-                                                //     },
-                                                //     child: Text(
-                                                //         'Remove to favorite')),
                                                 ElevatedButton.icon(
                                                     onPressed: () {
-                                                        Navigator.pop(context);
+                                                      Navigator.pop(context);
                                                       Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
@@ -190,15 +178,15 @@ class MostlyPlayedScreen extends StatelessWidget {
                                                         ),
                                                       );
                                                     },
-                                                    icon: Icon(Icons.add),
-                                                    label: Text(
+                                                    icon: const Icon(Icons.add),
+                                                    label: const Text(
                                                         'Add to playlist')),
                                               ],
                                             ));
                                       },
                                     );
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.more_vert,
                                     color: Color.fromARGB(255, 217, 217, 217),
                                   )),

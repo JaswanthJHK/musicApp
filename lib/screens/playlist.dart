@@ -1,4 +1,5 @@
-import 'dart:math';
+
+// ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:music_ui/function/playlist/playlist_funcion.dart';
@@ -6,7 +7,7 @@ import 'package:music_ui/screens/favoriteScreen.dart';
 import 'package:music_ui/screens/playlistPlaying.dart';
 
 class PlaylistScreen extends StatefulWidget {
-  PlaylistScreen({super.key});
+  const PlaylistScreen({super.key});
 
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
@@ -66,7 +67,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   width: 370,
                   height: 59,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 95, 95, 95),
+                    color: const Color.fromARGB(255, 95, 95, 95),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: GestureDetector(
@@ -74,7 +75,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FavoriteScreen(),
+                            builder: (context) => const FavoriteScreen(),
                           ));
                     },
                     child: ListTile(
@@ -93,7 +94,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => FavoriteScreen(),
+                                builder: (context) => const FavoriteScreen(),
                               ));
                         },
                         icon: const Icon(
@@ -112,7 +113,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                   child: ListTile(
-                      title: Text(
+                      title: const Text(
                         'PlayLists',
                         style: TextStyle(
                             color: Colors.grey,
@@ -126,8 +127,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                             builder: (context) {
                               return AlertDialog(
                                 backgroundColor:
-                                    Color.fromARGB(255, 220, 220, 220),
-                                title: Text('Add Name'),
+                                    const Color.fromARGB(255, 220, 220, 220),
+                                title: const Text('Add Name'),
                                 content: Form(
                                   key: playlistkey,
                                   child: TextFormField(
@@ -145,7 +146,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                       }
                                       return null;
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       border:
                                           OutlineInputBorder(), //------------------------------------------------
                                       hintText: 'Playlist Name',
@@ -166,32 +167,32 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                         }
                                         
                                       },
-                                      child: Text('OK'))
+                                      child: const Text('OK'))
                                 ],
                               );
                             },
                           );
                         },
-                        icon: Icon(Icons.add),
-                        color: Color.fromARGB(255, 182, 182, 182),
+                        icon: const Icon(Icons.add),
+                        color: const Color.fromARGB(255, 182, 182, 182),
                         iconSize: 30,
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: 330, // Set the desired width of the container
                   height: 450, // Set the desired height of the container
                   child: ValueListenableBuilder(
                     valueListenable: playlistNotifier,
                     builder: (context, value, child) {
                       if (playlistNotifier.value.isEmpty) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        return const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Center(
                             child: Text(
                               'No Playlist has creatd',
                               style: TextStyle(
                                   color:
-                                      const Color.fromARGB(255, 138, 137, 137),
+                                      Color.fromARGB(255, 138, 137, 137),
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -200,7 +201,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       }
 
                       return GridView.count(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         crossAxisCount: 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 0,
@@ -220,12 +221,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                           indexoflist: index),
                                     ));
                               },
-                              child: Container(
+                              child: SizedBox(
                                 child: Card(
                                   elevation: 5,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25)),
-                                  color: Color.fromARGB(255, 93, 93, 93),
+                                  color: const Color.fromARGB(255, 93, 93, 93),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -243,7 +244,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                       // const SizedBox(
                                       //   height: 10,
                                       // ),
-                                      Container(
+                                      SizedBox(
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -254,7 +255,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                               child: Text(
                                                 playlistNotifier
                                                     .value[index].name,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.normal,
@@ -268,7 +269,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                       backgroundColor:
-                                                          Color.fromARGB(255,
+                                                          const Color.fromARGB(255,
                                                               198, 198, 198),
                                                       content: Column(
                                                         mainAxisSize:
@@ -284,10 +285,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                                     builder:
                                                                         (context) {
                                                                       return AlertDialog(
-                                                                        title: Text(
+                                                                        title: const Text(
                                                                             'DELETE'),
                                                                         content:
-                                                                            Text('Are sure you want to Delete this playlist?'),
+                                                                            const Text('Are sure you want to Delete this playlist?'),
                                                                         actions: [
                                                                           TextButton(
                                                                             onPressed:
@@ -299,15 +300,15 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                                               // Navigator.popUntil(context, (route) => )
                                                                             },
                                                                             child:
-                                                                                Text('yes'),
+                                                                                const Text('yes'),
                                                                           ),
                                                                         ],
                                                                       );
                                                                     });
                                                               },
-                                                              icon: Icon(Icons
+                                                              icon: const Icon(Icons
                                                                   .remove_circle_outline),
-                                                              label: Text(
+                                                              label: const Text(
                                                                   'Delete this PlayList')),
                                                           ElevatedButton.icon(
                                                             onPressed: () {
@@ -319,7 +320,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                                   builder:
                                                                       (context) {
                                                                     return AlertDialog(
-                                                                      title: Text(
+                                                                      title: const Text(
                                                                           'EDIT'),
                                                                       content:
                                                                           Form(
@@ -342,9 +343,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                                             }
                                                                             return null;
                                                                           },
-
+                                                                    
                                                                           decoration:
-                                                                              InputDecoration(
+                                                                              const InputDecoration(
                                                                             border:
                                                                                 OutlineInputBorder(),
                                                                             hintText:
@@ -363,15 +364,15 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                                             }
                                                                           },
                                                                           child:
-                                                                              Text('yes'),
+                                                                              const Text('yes'),
                                                                         ),
                                                                       ],
                                                                     );
                                                                   });
                                                             },
-                                                            icon: Icon(Icons
+                                                            icon: const Icon(Icons
                                                                 .remove_circle_outline),
-                                                            label: Text(
+                                                            label: const Text(
                                                                 '  Edit this PlayList  '),
                                                           ),
                                                         ],
@@ -380,8 +381,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                   },
                                                 );
                                               },
-                                              icon: Icon(Icons.more_vert),
-                                              color: Color.fromARGB(
+                                              icon: const Icon(Icons.more_vert),
+                                              color: const Color.fromARGB(
                                                   255, 219, 219, 219),
                                               iconSize: 20,
                                             )

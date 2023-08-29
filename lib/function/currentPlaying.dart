@@ -3,6 +3,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import '../model/model.dart';
 // import '../screens/homeScreen.dart';
 import '../screens/objectsFuncton.dart';
+import '../screens/splachScreen.dart';
 
 // Modelsong? currentlyplaying;
 // List<Audio> playinglistAudio = [];
@@ -63,7 +64,7 @@ import '../screens/objectsFuncton.dart';
 //   return allSongsAudioList;
 // }
 //----------------------------------------------------------music playing function
-
+Modelsong? currentlyplaying;
 List<Audio> playingList = [];
 
 playMusic(int index, List<Modelsong> songs) async {
@@ -89,3 +90,15 @@ playMusic(int index, List<Modelsong> songs) async {
       showNotification: true);
   player.setLoopMode(LoopMode.playlist);
 }
+
+currentlyplayingfinder(int? playingId) {
+  for (Modelsong song in allSongs) {
+    if (song.id == playingId) {
+      currentlyplaying = song;
+      break;
+    }
+  }
+  // recentadd(currentlyplaying!);
+  // mostplayedadd(currentlyplaying!);
+  
+} 

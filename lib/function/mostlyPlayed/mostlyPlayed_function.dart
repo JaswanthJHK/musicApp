@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:music_ui/model/model.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 ValueNotifier<List<Modelsong>> mostlyPLayedlist = ValueNotifier([]);
 

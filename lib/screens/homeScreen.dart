@@ -1,9 +1,9 @@
-import 'dart:developer';
+// ignore_for_file: camel_case_types
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_ui/favorite/fav_db_functions.dart';
-// import 'package:music_ui/function/db_functions/allSongs.dart';
 import 'package:music_ui/function/currentPlaying.dart';
 import 'package:music_ui/function/mostlyPlayed/mostlyPlayed_function.dart';
 import 'package:music_ui/recently/recentlyPlayed.dart';
@@ -11,18 +11,16 @@ import 'package:music_ui/screens/addtoplaylist.dart';
 import 'package:music_ui/screens/favoriteScreen.dart';
 import 'package:music_ui/screens/mostlyPlayed.dart';
 import 'package:music_ui/screens/musicPlaying.dart';
-import 'package:music_ui/screens/objectsFuncton.dart';
 import 'package:music_ui/screens/recentlyPlayed.dart';
 import 'package:music_ui/screens/settings.dart';
 import 'package:music_ui/screens/splachScreen.dart';
-import 'package:music_ui/widget/listtile.dart';
-import 'package:flutter/src/material/bottom_navigation_bar.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import '../applications/favorite_bloc/bloc/favorite_bloc.dart';
 
 final player2 = AssetsAudioPlayer.withId('1');
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,11 +28,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String greeting = '';
+  @override
   void initState() {
-    favoriteFetch();
     super.initState();
     updateTime();
   }
+
   void updateTime() {
     DateTime now = DateTime.now();
     if (now.hour >= 0 && now.hour < 12) {
@@ -54,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaquery = MediaQuery.of(context);
     // getAll();
     return Scaffold(
       body: Container(
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Column(
               children: [
                 Container(
-                  height: 140,
+                  height: mediaquery.size.height * 0.19,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 209, 209, 209),
@@ -96,25 +96,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: EdgeInsets.only(top: 7, left: 30, bottom: 7),
                       child: Text(
-                         'Your Favorite',
-                        
+                        'Your Favorite',
                         style: TextStyle(
                           color: Colors.grey[800],
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Poppins',
                           fontSize: 27,
                         ),
-                        //textAlign:TextAlign.start ,
                       ),
                     ),
                   ],
                 ),
-                // SizedBox(
-                //   height: 10,
-                // ),
 
                 //-----------------------YOURS FAVORITE----------------------------------------
-                yoursFavorite(),
+                const yoursFavorite(),
 
                 const Row(
                   children: [
@@ -128,7 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontFamily: 'Poppins',
                           fontSize: 25,
                         ),
-                        //textAlign:TextAlign.start ,
                       ),
                     ),
                   ],
@@ -136,23 +130,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             //----------------------------------------------------------------MUSIC LIST VIEW AREA-------------------------
-            musicListview(),
+            const musicListview(),
           ]),
         ),
       ),
     );
   }
 
- Widget appbarfunction(BuildContext context,String name) {
+  Widget appbarfunction(BuildContext context, String name) {
     return AppBar(
-      title:  Padding(
-        padding: EdgeInsets.only(left: 10),
-         child: Text(
+      title: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Text(
           name,
-          // 'Good Morning',
-          // greeting,
-        
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w300,
             fontFamily: 'Poppins',
@@ -160,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 209, 209, 209),
+      backgroundColor: const Color.fromARGB(255, 209, 209, 209),
       elevation: 0,
       actions: [
         IconButton(
@@ -171,18 +162,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context) => SettingsScreen(),
                 ));
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.settings,
             size: 30,
           ),
-          padding: EdgeInsets.only(right: 20, top: 10),
-          color: Color.fromARGB(255, 77, 76, 76),
+          padding: const EdgeInsets.only(right: 20, top: 10),
+          color: const Color.fromARGB(255, 77, 76, 76),
         ),
       ],
     );
   }
-
-  
 }
 
 class musicListview extends StatelessWidget {
@@ -192,8 +181,7 @@ class musicListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //height: MediaQuery.of(context).size.height - 450,
+    return SizedBox(
       child: Padding(
         padding: const EdgeInsets.only(
           left: 15,
@@ -201,45 +189,35 @@ class musicListview extends StatelessWidget {
         ),
         //------------------------------------valueListenable----------------------------------------------------
         child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           itemCount: allSongs.length,
           itemBuilder: (context, index) {
             //-----------------------------------------PLAYING AREA------------------------------------------
-            // log("iiiiiiiiiiiiiiiiikannappiiii");
-            // print(mySongs.value.length);
 
             return GestureDetector(
               onTap: () async {
                 recentadd(allSongs[index]);
                 addMostlyPlayed(allSongs[index]);
-                //  log("iiiiiiiiiiiiggggggggggggggggggiiiiikannappiiii");
-                // player.open(Audio.file(allSongs[index].url!));
-                //print(player2.getCurrentAudioArtist);
+
                 playMusic(index, allSongs);
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   playingList.add(Audio(allSongs[index].url!));
-                  return PlayingScreen(song: allSongs[index]);
+                  return PlayingScreen(playingSong: allSongs[index]);
                 }));
               },
-              // child: MusicList(
-              //   song: listofSongs[index].name ?? 'untitled',
-              //   artist: listofSongs[index].artist ?? 'Unknown',
-              //   id: listofSongs[index].id!,
-              //   //-------------------------------------------try to clear the id null problem what if a null image will come
-              // ),
               child: ListTile(
                 leading: QueryArtworkWidget(
-                  artworkWidth: 30, artworkHeight: 30,
+                  artworkWidth: 55, artworkHeight: 55,
                   artworkFit: BoxFit.cover,
                   id: allSongs[index].id!,
                   type: ArtworkType.AUDIO,
                   artworkQuality: FilterQuality.high,
                   //size: 10,
                   quality: 100,
-                  artworkBorder: BorderRadius.circular(60),
+                  artworkBorder: BorderRadius.circular(10),
                   nullArtworkWidget: ClipRRect(
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
@@ -267,10 +245,6 @@ class musicListview extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w300),
                 ),
-                // trailing: Icon(
-                //   Icons.more_vert,
-                //   color: Colors.grey[100],
-                // ),
                 trailing: IconButton(
                     onPressed: () {
                       showDialog(
@@ -278,25 +252,29 @@ class musicListview extends StatelessWidget {
                         builder: (context) {
                           return AlertDialog(
                               backgroundColor:
-                                  Color.fromARGB(255, 198, 198, 198),
+                                  const Color.fromARGB(255, 198, 198, 198),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ElevatedButton(
                                       onPressed: () {
-                                        if (!favorite.value
+                                        if (!favorite
                                             .contains(allSongs[index])) {
-                                          addToFav(allSongs[index].id as int);
+                                          context.read<FavoriteBloc>().add(
+                                              addToFavoriteBloc(
+                                                  blocId: allSongs[index].id
+                                                      as int));
                                         } else {
-                                          removeFromFav(
-                                              allSongs[index].id as int);
+                                          context.read<FavoriteBloc>().add(
+                                              removeFromFavBloc(
+                                                  id: allSongs[index].id
+                                                      as int));
                                         }
                                         Navigator.pop(context);
                                       },
-                                      child: favorite.value
-                                              .contains(allSongs[index])
-                                          ? Text('Remove from favorite')
-                                          : Text('Add to favorite')),
+                                      child: favorite.contains(allSongs[index])
+                                          ? const Text('Remove from favorite')
+                                          : const Text('Add to favorite')),
                                   ElevatedButton.icon(
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -308,17 +286,15 @@ class musicListview extends StatelessWidget {
                                                     music: allSongs[index]),
                                           ),
                                         );
-
-                                        //print(player.getCurrentAudioTitle);
                                       },
-                                      icon: Icon(Icons.add),
-                                      label: Text('Add to playlistt')),
+                                      icon: const Icon(Icons.add),
+                                      label: const Text('Add to playlistt')),
                                 ],
                               ));
                         },
                       );
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.more_vert,
                       color: Color.fromARGB(255, 217, 217, 217),
                     )),
@@ -346,7 +322,7 @@ class yoursFavorite extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FavoriteScreen(),
+                  builder: (context) => const FavoriteScreen(),
                 ));
           },
           child: Container(
@@ -369,7 +345,7 @@ class yoursFavorite extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FavoriteScreen(),
+                  builder: (context) => const FavoriteScreen(),
                 ));
           },
           child: Container(
@@ -415,7 +391,7 @@ class recentlyMostlyPlayed extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RecentlyScreen(),
+                  builder: (context) => const RecentlyScreen(),
                 ));
           },
           child: Container(
@@ -448,13 +424,12 @@ class recentlyMostlyPlayed extends StatelessWidget {
             ),
           ),
         ),
-        // SizedBox(width: 10,),
         GestureDetector(
           onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MostlyPlayedScreen(),
+                  builder: (context) => const MostlyPlayedScreen(),
                 ));
           },
           child: Container(
@@ -492,21 +467,3 @@ class recentlyMostlyPlayed extends StatelessWidget {
     );
   }
 }
-// class MusicPlayerWidget extends StatelessWidget {
-//   final String greeting;
-
-//   MusicPlayerWidget({required this.greeting});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Text(
-//           greeting,
-//           style: TextStyle(fontSize: 24),
-//         ),
-//         // Add your music player widget code here
-//       ],
-//     );
-//   }
-// }

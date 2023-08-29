@@ -38,13 +38,18 @@ addsongToPlaylist(Modelsong addingsong, String name) async {
   Box<PlayListModel> playlistDB = await Hive.openBox('playlist_db');
   for (PlayListModel element in playlistDB.values) {
     if (element.playlistName == name) {
-      PlayListModel playlistUpdate = PlayListModel(playlistName: name);
-      playlistUpdate.item.addAll(element.item);
-      playlistUpdate.item.add(addingsong.id as int);
-      playlistDB.put(element.key, playlistUpdate);
-      break;
+      if (element.item.contains(addingsong.id)) {
+        continue;
+      } else {
+        PlayListModel playlistUpdate = PlayListModel(playlistName: name);
+        playlistUpdate.item.addAll(element.item);
+        playlistUpdate.item.add(addingsong.id as int);
+        playlistDB.put(element.key, playlistUpdate);
+        break;
+      }
     }
   }
+
   playlistNotifier.notifyListeners();
 }
 
@@ -77,6 +82,4 @@ updateNamePlaylist(String name, int index) async {
   }
   playlistNotifier.value[index].name = name;
   playlistNotifier.notifyListeners();
-  
-  
 }

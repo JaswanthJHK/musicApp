@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({super.key});
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -38,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       bottomRight: Radius.circular(30),
                     )),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: ShaderMask(
                     blendMode: BlendMode.srcIn,
                     shaderCallback: (Rect bounds) {
@@ -58,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back_ios_new)),
+                            icon: const Icon(Icons.arrow_back_ios_new)),
                         const Padding(
                           padding: EdgeInsets.only(right: 140),
                           child: Text(
@@ -164,14 +163,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               //   ),
               // ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 25),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll(
                         Color(0xFF808080),
                       ),
                       minimumSize:
-                          MaterialStateProperty.all<Size>(Size(300, 50)),
+                          MaterialStateProperty.all<Size>(const Size(300, 50)),
                       textStyle: MaterialStateProperty.all<TextStyle>(
                           const TextStyle(
                               color: Color.fromARGB(255, 222, 222, 222),
@@ -182,8 +181,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                          title: Text('Terms And Conditions'),
+                          backgroundColor: const Color.fromARGB(255, 215, 215, 215),
+                          title: const Text('Terms And Conditions'),
                           content: const Text(
                               'Terms and Conditions \n \n Please read these Terms and Conditions ("Terms") carefully before using our music app. By accessing or using the app, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not use the app\n ownership \n \n Ownership: All intellectual property rights in the app, including but not limited to copyrights, trademarks, and trade secrets, are owned by us or our licensors. You acknowledge that you have no right, title, or interest in the app or its content except as expressly provided in these terms'),
                           actions: [
@@ -191,24 +190,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text('OK'))
+                                child: const Text('OK'))
                           ],
                         );
                       },
                     );
                   },
-                  child: Text('Terms And Condtions'),
+                  child: const Text('Terms And Condtions'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 25),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll(
                         Color(0xFF808080),
                       ),
                       minimumSize:
-                          MaterialStateProperty.all<Size>(Size(300, 50)),
+                          MaterialStateProperty.all<Size>(const Size(300, 50)),
                       textStyle: MaterialStateProperty.all<TextStyle>(
                           const TextStyle(
                               color: Color.fromARGB(255, 251, 243, 243),
@@ -220,8 +219,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) {
                         return SingleChildScrollView(
                           child: AlertDialog(
-                            backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                            title: Text('Privacy Policy'),
+                            backgroundColor: const Color.fromARGB(255, 215, 215, 215),
+                            title: const Text('Privacy Policy'),
                             content: const Text(
                                 "Privacy Policy\n \n This privacy policy describes how we collect, use, store, and disclose information when you use our music app. By using the app, you agree to the collection and use of your information as described in this privacy policy. \n \n Information that we collect\n \n 1.1 Personal Information: We may collect personal information that you provide to us, such as your name, email address, and profile picture when you create an account or interact with certain features of the app \n \n 1.2 Usage Information: We automatically collect certain information about your device and usage of the app, including IP address, device type, operating system, app version, and usage statistics. This information is used to analyze trends, administer the app, track user movements, and gather demographic information for aggregate use  \n \n Use of information \n \n  2.1 Personal Information: We may use your personal information to provide and personalize the apps features and content, communicate with you, and improve our services. We may also use your information to send you promotional emails or updates about the app, but you can opt out of receiving such communications \n \n Data storage and security \n\n Data Storage: Your information, including personal and usage data, may be stored on servers located in different countries. By using the app, you consent to the transfer of your information to these servers \n \n CONTACT US \n\n if you have questions and conserns , or suggestions regarding the privacy policy or my app's privacy practices please contact us at jaswanthkriz@gmail.com"),
                             actions: [
@@ -229,77 +228,79 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('OK'))
+                                  child: const Text('OK'))
                             ],
                           ),
                         );
                       },
                     );
                   },
-                  child: Text('Privacy Policy'),
+                  child: const Text('Privacy Policy'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 25),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll(
                         Color(0xFF808080),
                       ),
                       minimumSize:
-                          MaterialStateProperty.all<Size>(Size(300, 50)),
-                      textStyle: MaterialStateProperty.all<TextStyle>(
-                          const TextStyle(
-                              color: Color.fromARGB(255, 251, 243, 243),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500))),
-                  onPressed: () {},
-                  child: Text('Share The app'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll(
-                        Color(0xFF808080),
-                      ),
-                      minimumSize:
-                          MaterialStateProperty.all<Size>(Size(300, 50)),
+                          MaterialStateProperty.all<Size>(const Size(300, 50)),
                       textStyle: MaterialStateProperty.all<TextStyle>(
                           const TextStyle(
                               color: Color.fromARGB(255, 251, 243, 243),
                               fontSize: 20,
                               fontWeight: FontWeight.w500))),
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const AlertDialog(
-                            backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                            title: Text('Profile Name'),
-                            content: TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Your Name',
-                              ),
-                            ));
-                      },
-                    );
+                    shareMusic();
                   },
-                  child: Text('Profile'),
+                  child: const Text('Share The app'),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 25),
+              //   child: ElevatedButton(
+              //     style: ButtonStyle(
+              //         backgroundColor: const MaterialStatePropertyAll(
+              //           Color(0xFF808080),
+              //         ),
+              //         minimumSize:
+              //             MaterialStateProperty.all<Size>(const Size(300, 50)),
+              //         textStyle: MaterialStateProperty.all<TextStyle>(
+              //             const TextStyle(
+              //                 color: Color.fromARGB(255, 251, 243, 243),
+              //                 fontSize: 20,
+              //                 fontWeight: FontWeight.w500))),
+              //     onPressed: () {
+              //       showDialog(
+              //         context: context,
+              //         builder: (context) {
+              //           return const AlertDialog(
+              //               backgroundColor: Color.fromARGB(255, 215, 215, 215),
+              //               title: Text('Profile Name'),
+              //               content: TextField(
+              //                 decoration: InputDecoration(
+              //                   border: OutlineInputBorder(),
+              //                   hintText: 'Your Name',
+              //                 ),
+              //               ));
+              //         },
+              //       );
+              //     },
+              //     child: const Text('Profile'),
+              //   ),
+              // ),
 
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 25),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll(
                         Color(0xFF808080),
                       ),
                       minimumSize:
-                          MaterialStateProperty.all<Size>(Size(300, 50)),
+                          MaterialStateProperty.all<Size>(const Size(300, 50)),
                       textStyle: MaterialStateProperty.all<TextStyle>(
                           const TextStyle(
                               color: Color.fromARGB(255, 251, 243, 243),
@@ -310,64 +311,64 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                          title: Text('About'),
+                          backgroundColor: const Color.fromARGB(255, 215, 215, 215),
+                          title: const Text('About'),
                           content: const Text(
-                              'Musique is an offline music player app which allows to hear music from their storage and also do functions like add to favorite, create playlist , recently played and mostly played, etc. \n \n App developed by \n JASWANTH HARIKIRSHNA'),
+                              'Songverse is an offline music player app which allows to hear music from their storage and also do functions like add to favorite, create playlist , recently played and mostly played, etc. \n \n App developed by \n JASWANTH HARIKIRSHNA'),
                           actions: [
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text('OK'))
+                                child: const Text('OK'))
                           ],
                         );
                       },
                     );
                   },
-                  child: Text('About Us'),
+                  child: const Text('About Us'),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll(
-                        Color(0xFF808080),
-                      ),
-                      minimumSize:
-                          MaterialStateProperty.all<Size>(Size(300, 50)),
-                      textStyle: MaterialStateProperty.all<TextStyle>(
-                          const TextStyle(
-                              color: Color.fromARGB(255, 251, 243, 243),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500))),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                            backgroundColor: Color.fromARGB(255, 215, 215, 215),
-                            title: Text(' Notification'),
-                            content: ListTile(
-                              title: Text('Turn On'),
-                              trailing: Switch(
-                                value: _onChange,
-                                onChanged: (value) {
-                                  return setState(() {
-                                    _onChange = value;
-                                  });
-                                },
-                                activeColor: Colors.blue,
-                                inactiveThumbColor: Colors.blue,
-                              ),
-                            ));
-                      },
-                    );
-                  },
-                  child: Text('Notification'),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 20),
+              //   child: ElevatedButton(
+              //     style: ButtonStyle(
+              //         backgroundColor: const MaterialStatePropertyAll(
+              //           Color(0xFF808080),
+              //         ),
+              //         minimumSize:
+              //             MaterialStateProperty.all<Size>(Size(300, 50)),
+              //         textStyle: MaterialStateProperty.all<TextStyle>(
+              //             const TextStyle(
+              //                 color: Color.fromARGB(255, 251, 243, 243),
+              //                 fontSize: 20,
+              //                 fontWeight: FontWeight.w500))),
+              //     onPressed: () {
+              //       showDialog(
+              //         context: context,
+              //         builder: (context) {
+              //           return AlertDialog(
+              //               backgroundColor: Color.fromARGB(255, 215, 215, 215),
+              //               title: Text(' Notification'),
+              //               content: ListTile(
+              //                 title: Text('Turn On'),
+              //                 trailing: Switch(
+              //                   value: _onChange,
+              //                   onChanged: (value) {
+              //                     return setState(() {
+              //                       _onChange = value;
+              //                     });
+              //                   },
+              //                   activeColor: Colors.blue,
+              //                   inactiveThumbColor: Colors.blue,
+              //                 ),
+              //               ));
+              //         },
+              //       );
+              //     },
+              //     child: Text('Notification'),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -380,5 +381,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
       title: text,
       trailing: icon2,
     );
+  }
+
+  void shareMusic() {
+    // Define the content to be shared
+    String musicTitle = "Mr.musik";
+    String musicUrl =
+        "https://play.google.com/store/apps/details?id=com.brototype.mr_musik";
+
+    // Share the content using the share package
+    Share.share(
+        "Check out this amazing music player App: $musicTitle\n\n$musicUrl");
   }
 }

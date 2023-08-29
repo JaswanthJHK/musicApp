@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:hive/hive.dart';
 import 'package:music_ui/model/model.dart';
 

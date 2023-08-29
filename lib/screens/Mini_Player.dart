@@ -1,14 +1,16 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marquee/marquee.dart';
-import 'package:music_ui/recently/recentlyPlayed.dart';
 import 'package:music_ui/screens/musicPlaying.dart';
-// import 'package:marquee/marquee.dart';
+import 'package:music_ui/screens/splachScreen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
+import '../applications/MostlyBloc/bloc/mostly_bloc_bloc.dart';
+import '../applications/MostlyBloc/bloc/mostly_bloc_event.dart';
+import '../applications/recent_bloc/recent_bloc_bloc.dart';
+import '../function/currentPlaying.dart';
+import '../model/model.dart';
 import 'objectsFuncton.dart';
-// import 'package:project_music_player/Global_Files/Global_Files.dart';
-// import 'package:project_music_player/Screens/MainPlayer.dart';
 
 class MiniPlayer extends StatefulWidget {
   const MiniPlayer({super.key});
@@ -22,12 +24,23 @@ class _MiniPlayerState extends State<MiniPlayer> {
   Widget build(BuildContext context) {
     return player.builderCurrent(
       builder: (context, playing) {
+        Modelsong? song;
+        int id = int.parse(playing.audio.audio.metas.id!);
+        currentlyplayingfinder(id);
+        for (Modelsong element in allSongs) {
+          if (element.id == id) {
+            song = element;
+          }
+        }
+        BlocProvider.of<RecentlyBloc>(context)
+            .add(RecentAdd(song: song as Modelsong));
+        BlocProvider.of<MostBloc>(context).add(MostPlayedAdd(song: song));
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(255, 175, 175, 175),
+              color: const Color.fromARGB(255, 175, 175, 175),
             ),
             height: 80,
             width: double.infinity,
@@ -35,7 +48,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return PlayingScreen();
+                    return PlayingScreen(playingSong: currentlyplaying);
                   },
                 ));
               },
@@ -76,7 +89,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           },
                           icon: Icon(
                             isPlaying ? Icons.pause : Icons.play_arrow,
-                            color:  Color.fromARGB(255, 68, 68, 68),
+                            color: const Color.fromARGB(255, 68, 68, 68),
                           )),
                       IconButton(
                         onPressed: () async {
@@ -88,7 +101,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                         },
                         icon: const Icon(
                           Icons.skip_next,
-                          color:  Color.fromARGB(255, 68, 68, 68),
+                          color: Color.fromARGB(255, 68, 68, 68),
                         ),
                       ),
                     ],
@@ -96,10 +109,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 },
               ),
             ),
-            
           ),
         );
-        
       },
     );
   }

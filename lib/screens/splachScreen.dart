@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:music_ui/All_Songs/allSongs_functon.dart';
 import 'package:music_ui/favorite/fav_db_functions.dart';
@@ -13,53 +16,52 @@ import 'package:music_ui/screens/objectsFuncton.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../applications/MostlyBloc/bloc/mostly_bloc_bloc.dart';
+import '../applications/MostlyBloc/bloc/mostly_bloc_event.dart';
+import '../applications/recent_bloc/recent_bloc_bloc.dart';
 import '../function/playlist/playlist_model.dart';
 import '../recently/recentlyPlayed.dart';
 
 //List<Modelsong> listofSongs = [];
 List<Modelsong> allSongs = allSongsDB.values.toList();
 
-class SplashScreen extends StatefulWidget {
-  SplashScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  Widget build(BuildContext context) {
+    wait(context);
+    return const Scaffold(
+      backgroundColor: Color(0xFF101010),
+      body: Padding(
+        padding: EdgeInsets.only(top: 80),
+        child: Center(
+          child: SizedBox(
+              child: Image(
+                  image: AssetImage('assets/image/REAL-SONGVERSE-ICON.png'))),
+        ),
+      ),
+    );
+  }
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    SongFetch fetching = SongFetch();
-    fetching.fetching();
-    super.initState();
-    gotohome();
-  }
-
-  gotohome() async {
-    await Future.delayed(Duration(seconds: 3), () {});
-    Navigator.pushReplacement(
-      context,
+wait(context) async {
+  SongFetch fetch = SongFetch();
+  await fetch.fetching();
+  // BlocProvider.of<FavoriteBloc>(context).add(FavoriteEvent());
+  BlocProvider.of<RecentlyBloc>(context).add(RecentFetch());
+  BlocProvider.of<MostBloc>(context).add(MostPlayedFetch());
+  Timer(const Duration(milliseconds: 1500), () {
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => BottomNav(),
+        builder: (_) => BottomNav(),
       ),
     );
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 31, 31, 28),
-      body: Center(
-        child: Container(
-            child: const Image(
-                image: AssetImage('assets/image/Splash_Image.png'))),
-      ),
-    );
-  }
+  });
 }
 
 class SongFetch {
   permisionRequest() async {
-    // check android version here working
     PermissionStatus status = await Permission.storage.request();
     if (status.isGranted) {
       return true;
@@ -98,7 +100,7 @@ class SongFetch {
 }
 
 favoriteFetch() async {
-  favorite.value.clear();
+  favorite.clear();
   List<FavoriteModel> favSongCheck = [];
   Box<FavoriteModel> favdb = await Hive.openBox('fav_db');
   favSongCheck.addAll(favdb.values);
@@ -107,7 +109,7 @@ favoriteFetch() async {
     for (var songs in allSongs) {
       if (favs.id == songs.id) {
         // favorite function that created in fav_db_function
-        favorite.value.insert(0, songs);
+        favorite.insert(0, songs);
         break;
       } else {
         count++;
@@ -124,7 +126,11 @@ mostlyPlayedFetch() async {
   Box<int> mostPlayedDB = await Hive.openBox('mostly_played');
   if (mostPlayedDB.isEmpty) {
     for (Modelsong element in allSongs) {
-      mostPlayedDB.put(element.id, 0);
+      if (mostPlayedDB.containsKey(element)) {
+        continue;
+      } else {
+        mostPlayedDB.put(element.id, 0);
+      }
     }
   } else {
     for (int id in mostPlayedDB.keys) {

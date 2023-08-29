@@ -1,9 +1,8 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_ui/function/playlist/playlist_funcion.dart';
 import 'package:music_ui/model/model.dart';
-import 'package:music_ui/screens/homeScreen.dart';
 
+// ignore: camel_case_types
 class addingToPlaylist extends StatefulWidget {
   final Modelsong music;
   const addingToPlaylist({required this.music, super.key});
@@ -12,6 +11,7 @@ class addingToPlaylist extends StatefulWidget {
   State<addingToPlaylist> createState() => _addingToPlaylistState();
 }
 
+// ignore: camel_case_types
 class _addingToPlaylistState extends State<addingToPlaylist> {
   TextEditingController playlist = TextEditingController();
   @override
@@ -40,7 +40,7 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                       bottomRight: Radius.circular(30),
                     )),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: ShaderMask(
                     blendMode: BlendMode.srcIn,
                     shaderCallback: (Rect bounds) {
@@ -60,7 +60,7 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back_ios_new)),
+                            icon: const Icon(Icons.arrow_back_ios_new)),
                         const Padding(
                           padding: EdgeInsets.only(right: 96),
                           child: Text(
@@ -72,16 +72,7 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                             ),
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 15),
-                        //   child: IconButton(
-                        //     onPressed: () {
-
-                        //     },
-                        //     icon: Icon(Icons.add),
-                        //     iconSize: 30,
-                        //   ),
-                        // )
+                        
                       ],
                     ),
                   ),
@@ -90,7 +81,7 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: ListTile(
-                    title: Text(
+                    title: const Text(
                       'PlayLists',
                       style: TextStyle(
                           color: Colors.grey,
@@ -104,11 +95,11 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                           builder: (context) {
                             return AlertDialog(
                               backgroundColor:
-                                  Color.fromARGB(255, 220, 220, 220),
-                              title: Text('Add Name'),
+                                  const Color.fromARGB(255, 220, 220, 220),
+                              title: const Text('Add Name'),
                               content: TextField(
                                 controller: playlist,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: 'Playlist Name',
                                 ),
@@ -122,46 +113,19 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                                       });
                                       Navigator.pop(context);
                                     },
-                                    child: Text('OK'))
+                                    child: const Text('OK'))
                               ],
                             );
                           },
                         );
                       },
-                      icon: Icon(Icons.add),
-                      color: Color.fromARGB(255, 182, 182, 182),
+                      icon: const Icon(Icons.add),
+                      color: const Color.fromARGB(255, 182, 182, 182),
                       iconSize: 30,
                     )),
               ),
               Expanded(
-                // child: ValueListenableBuilder(
-                //   valueListenable: playlistNotifier,
-                //   builder: (context, value, child) {
-                //     return ListView.builder(
-                //       itemCount: playlistNotifier.value.length,
-                //       itemBuilder: (context, index) {
-                //         return Padding(
-                //           padding: const EdgeInsets.all(8.0),
-                //           child: Card(
-                //             color: Color.fromARGB(255, 163, 163, 163),
-                //             child: InkWell(
-                // onTap: () {
-                //   addsongToPlaylist(
-                //       music, playlistNotifier.value[index].name);
-                //   playlistNotifier.value[index].playlistSongs
-                //       .add(music);
-                //   Navigator.pop(context);
-                // },
-                //               child: ListTile(
-                //                 title: Text(playlistNotifier.value[index].name),
-                //               ),
-                //             ),
-                //           ),
-                //         );
-                //       },
-                //     );
-                //   },
-                // ),
+             
 
                 child: ValueListenableBuilder(
                   valueListenable: playlistNotifier,
@@ -170,7 +134,7 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: GridView.count(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         crossAxisCount: 2,
                         crossAxisSpacing: 25,
                         mainAxisSpacing: 10,
@@ -187,16 +151,16 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                             addsongToPlaylist(widget.music,
                                 playlistNotifier.value[index].name);
                             ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Center(child: const Text('Song Added')),
-                              backgroundColor: const Color.fromARGB(255, 104, 104, 104),
-                              duration: const Duration(seconds: 1),
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Center(child: Text('Song Added')),
+                              backgroundColor: Color.fromARGB(255, 104, 104, 104),
+                              duration: Duration(seconds: 1),
                             ));
                           } else {
                             ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Center(child: const Text('Song Alredy Present',style:TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)),
-                              backgroundColor: const Color.fromARGB(255, 161, 161, 161),
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Center(child: Text('Song Alredy Present',style:TextStyle(color: Color.fromARGB(255, 0, 0, 0)),)),
+                              backgroundColor: Color.fromARGB(255, 161, 161, 161),
                             ));
                           }
 
@@ -208,12 +172,12 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                                     .add(widget.music);
                                 Navigator.pop(context);
                               },
-                              child: Container(
+                              child: SizedBox(
                                 child: Card(
                                   elevation: 5,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25)),
-                                  color: Color.fromARGB(255, 93, 93, 93),
+                                  color: const Color.fromARGB(255, 93, 93, 93),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -231,8 +195,8 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                                       // const SizedBox(
                                       //   height: 10,
                                       // ),
-                                      Container(
-                                        child: Row(
+                                      SizedBox(
+                                        child: Row(                                                   // here i removed an unnecessory container
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
@@ -242,7 +206,7 @@ class _addingToPlaylistState extends State<addingToPlaylist> {
                                               child: Text(
                                                 playlistNotifier
                                                     .value[index].name,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.normal,
